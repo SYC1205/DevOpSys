@@ -23,6 +23,7 @@
     "serve-favicon": "~2.2.0",
     "swig": "^1.4.2",
     "xml2js": "^0.4.9",
-    "zookeeper-watcher": "^1.0.1"
+    "zookeeper-watcher": "^1.0.1",
+	"gitlab": "*"
   }
 }
