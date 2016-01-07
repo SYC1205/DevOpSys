@@ -74,7 +74,11 @@ JenKinsApi.prototype.build = function(jobName, callback){
 
 JenKinsApi.prototype.buildwithparams = function(options, callback){
     jenkins_test.job.build(options, function(err) {
-        if (err) throw err;
+        if (err){
+            console.log(err);
+        };
+
+        callback();
     });
     /*
     jenkins_test.build(jobName, paramsJSON, function(err, data) {
