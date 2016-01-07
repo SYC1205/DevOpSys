@@ -362,7 +362,7 @@ function receive(req, res, next) {
                                                                         
                                                                         var testparms = {
                                                                             name : 'Plus_lab',
-                                                                            testngfile: 'basic'
+                                                                            parameters : {testngfile: 'basic'}
                                                                         };
 
                                                                         jenkins.buildwithparams(testparms, function(result){
