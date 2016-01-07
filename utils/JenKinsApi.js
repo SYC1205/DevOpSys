@@ -64,18 +64,18 @@ JenKinsApi.prototype.create = function(jobName, gitUrl, branch, callback){
 };
 
 JenKinsApi.prototype.build = function(jobName, callback){
-    jenkins_test.build('jobName', function(err, data) {
+    jenkins_test.build(jobName, function(err, data) {
         if (err){ return console.log(err); }
-        console.log(data)
+        console.log(data);
         callback(data);
     });
 };
 
 
 JenKinsApi.prototype.buildwithparams = function(jobName, paramsJSON, callback){
-    jenkins.build('jobName', paramsJSON.toString(), function(err, data) {
+    jenkins_test.build(jobName, paramsJSON, function(err, data) {
         if (err){ return console.log(err); }
-        console.log(data)
+        console.log(data);
         callback(data);
     });
 };
