@@ -360,9 +360,12 @@ function receive(req, res, next) {
                                                                     if( branch === 'lab' && (buildDoc.apiName === 'PlusFE' || buildDoc.apiName === 'PlusBE')){
                                                                         console.log("Start Testing.");
                                                                         
-                                                                        var testparms = {testngfile: 'basic'};
+                                                                        var testparms = {
+                                                                            name : 'Plus_lab',
+                                                                            testngfile: 'basic'
+                                                                        };
 
-                                                                        jenkins.buildwithparams('Plus_lab', testparms, function(result){
+                                                                        jenkins.buildwithparams(testparms, function(result){
                                                                             console.log(result);
                                                                             
                                                                             sendData.state = 0;
