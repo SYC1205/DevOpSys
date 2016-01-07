@@ -365,7 +365,7 @@ function receive(req, res, next) {
                                                                         jenkins.buildwithparams('Plus_lab', testparms, function(result){
                                                                             console.log(result);
                                                                             
-                                                                            var sendData.state = 0;
+                                                                            sendData.state = 0;
 
                                                                             res.send(sendData);
 
