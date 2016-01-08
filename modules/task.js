@@ -505,7 +505,10 @@ function getDeployFile(req, res, next){
             setOpt.apiName = buildData.apiName;
             dbase.getApiTypeByName(setOpt.apiName, function(apiType){
                 for( var fileIdx in buildData.fileList){
-                    if(buildData.fileList[fileIdx].length > 4 && (buildData.fileList[fileIdx].substr(buildData.fileList[fileIdx].length-4, 4).toLowerCase() === ".war")){
+                    if(buildData.fileList[fileIdx].length > 4 && (
+                            (buildData.fileList[fileIdx].substr(buildData.fileList[fileIdx].length-4, 4).toLowerCase() === ".war") ||
+                            (buildData.fileList[fileIdx].substr(buildData.fileList[fileIdx].length-4, 4).toLowerCase() === ".aar")
+                    )){
                         setOpt.fileUrl = config.get('LAB_DEPLOY_FILE_SERVER') + setOpt.apiName + "/" + setOpt.taskNo +"/" + buildData.fileList[fileIdx];
                         setOpt.fileName = buildData.fileList[fileIdx];
                         break;
