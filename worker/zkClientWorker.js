@@ -50,7 +50,7 @@ function setApiList(nodeList, idx){
                                 return;
                             }
                             if(stat){
-                                client.setData(path + "/" + Object.keys(nodeList)[idx] + "/allow", new Buffer('{ allow: [' +nodeList[Object.keys(nodeList)[idx]]['apiAllow'].toString() + ']}'), function(error,stat){
+                                client.setData(path + "/" + Object.keys(nodeList)[idx] + "/allow", new Buffer(JSON.stringify({ allow: nodeList[Object.keys(nodeList)[idx]]['apiAllow']})), function(error,stat){
                                     if (error) {
                                         console.log('Failed to set node date: %s due to: %s.', path + "/" + Object.keys(nodeList)[idx] + "/allow", error);
                                         return;
