@@ -459,7 +459,7 @@ function receive(req, res, next) {
                                                     res.send(sendData);*/
                                                 }else{
                                                     //db.close();
-                                                    console.log("rundeck action 09: " + rdAction);
+                                                    //console.log("rundeck action 09: " + rdAction);
                                                     sendData.state = 0;
                                                     res.send(sendData);
                                                 }
