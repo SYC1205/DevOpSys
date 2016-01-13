@@ -189,9 +189,9 @@ function receive(req, res, next) {
                     }
                     //var testRes = JSON.parse(req.body);
                     //console.log("Test server res: " +testRes);
-                    //slackbot.sendMsg("DepolyID: " + testRes.API[0].deployid + ", Test Result:" + testRes.API[0].Error === ''?"OK":"Fail" , function(sucess, result){
-                    slackbot.sendMsg("Test Result: " + JSON.stringify(req.body) , null, function(sucess, slackRes){
-                        if(sucess){
+                    //slackbot.sendMsg("DepolyID: " + testRes.API[0].deployid + ", Test Result:" + testRes.API[0].Error === ''?"OK":"Fail" , function(success, result){
+                    slackbot.sendMsg("Test Result: " + JSON.stringify(req.body) , null, function(success, slackRes){
+                        if(success){
                             console.log("Slack Response: ", JSON.stringify(slackRes));
                         }else{
                             console.log("Slack error: ", JSON.stringify(slackRes));
@@ -223,8 +223,8 @@ function receive(req, res, next) {
                         console.log(error.stack);
                         process.exit(0);
                     }
-                    slackbot.sendMsg("QA Result: " + JSON.stringify(req.body) , null, function(sucess, slackRes){
-                        if(sucess){
+                    slackbot.sendMsg("QA Result: " + JSON.stringify(req.body) , null, function(success, slackRes){
+                        if(success){
                             console.log("Slack Response: ", JSON.stringify(slackRes));
                         }else{
                             console.log("Slack error: ", JSON.stringify(slackRes));
@@ -317,7 +317,7 @@ function receive(req, res, next) {
                                                  ",\nDepolyID: " + queryObj.taskNo ,
                                                  slackIcon,
                                                  function(success, slackRes){
-                                    if(sucess){
+                                    if(success){
                                         console.log("Slack Response: ", JSON.stringify(slackRes));
                                     }else{
                                         console.log("Slack error: ", JSON.stringify(slackRes));
@@ -468,7 +468,7 @@ function receive(req, res, next) {
                                     });
                                 });
                             });
-                            /*slackbot.sendMsg("Rundeck Status: " + result.notification.$.status +", \tDepolyID: " + queryObj.taskNo , function(sucess, result){
+                            /*slackbot.sendMsg("Rundeck Status: " + result.notification.$.status +", \tDepolyID: " + queryObj.taskNo , function(success, result){
                                 console.log(result);
                             });*/
                         });
