@@ -3,7 +3,8 @@
  * Report module.
  */
 var dbase = new require('../utils/DataBase.js');
-var slackbot = new require('./slackbotModule.js');
+//var slackbot = new require('./slackbotModule.js');
+var slackbot = new require('../utils/SlackWebHookAPI');
 var config = require("nconf");
 config.env().file({ "file":"config.json" });
 
@@ -189,7 +190,12 @@ function receive(req, res, next) {
                     //var testRes = JSON.parse(req.body);
                     //console.log("Test server res: " +testRes);
                     //slackbot.sendMsg("DepolyID: " + testRes.API[0].deployid + ", Test Result:" + testRes.API[0].Error === ''?"OK":"Fail" , function(sucess, result){
-                    slackbot.sendMsg("Test Result: " + JSON.stringify(req.body) , null, function(sucess, result){
+                    slackbot.sendMsg("Test Result: " + JSON.stringify(req.body) , null, function(sucess, slackRes){
+                        if(sucess){
+                            console.log("Slack Response: ", JSON.stringify(slackRes));
+                        }else{
+                            console.log("Slack error: ", JSON.stringify(slackRes));
+                        }
                         logColl.insert(sendData, function(error, data){
                             if(error){
                                 console.log(error.stack);
@@ -217,7 +223,12 @@ function receive(req, res, next) {
                         console.log(error.stack);
                         process.exit(0);
                     }
-                    slackbot.sendMsg("QA Result: " + JSON.stringify(req.body) , null, function(sucess, result){
+                    slackbot.sendMsg("QA Result: " + JSON.stringify(req.body) , null, function(sucess, slackRes){
+                        if(sucess){
+                            console.log("Slack Response: ", JSON.stringify(slackRes));
+                        }else{
+                            console.log("Slack error: ", JSON.stringify(slackRes));
+                        }
                         logColl.insert(sendData, function(error, data){
                             if(error){
                                 console.log(error.stack);
@@ -305,8 +316,13 @@ function receive(req, res, next) {
                                                  ",\nRundeck Status: " + result.notification.$.status +
                                                  ",\nDepolyID: " + queryObj.taskNo ,
                                                  slackIcon,
-                                                 function(){
-                                    console.log(result);
+                                                 function(success, slackRes){
+                                    if(sucess){
+                                        console.log("Slack Response: ", JSON.stringify(slackRes));
+                                    }else{
+                                        console.log("Slack error: ", JSON.stringify(slackRes));
+                                    }
+                                    console.log("Rundeck report:", result);
                                     devopsDb.collection('task', function(error, taskColl){
                                         if(error){
                                             console.log(error.stack);
