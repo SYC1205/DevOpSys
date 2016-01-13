@@ -322,13 +322,13 @@ function receive(req, res, next) {
                                     }else{
                                         console.log("Slack error: ", JSON.stringify(slackRes));
                                     }
-                                    console.log("Rundeck report:", result);
+                                    //console.log("Rundeck report:", result);
                                     devopsDb.collection('task', function(error, taskColl){
                                         if(error){
                                             console.log(error.stack);
                                             process.exit(0);
                                         }
-                                        console.log("queryObj: " + JSON.stringify(queryObj));
+                                        //console.log("queryObj: " + JSON.stringify(queryObj));
                                         taskColl.update(queryObj,{$set:updateObj},function(error, taskResult){
                                             if(error){
                                                 console.log(error.stack);
@@ -337,23 +337,23 @@ function receive(req, res, next) {
                                                 //sendData.info = error.stack;
                                                 //res.send(sendData);
                                             }
-                                            console.log(taskResult);
-                                            console.log("rundeck action 01: " + rdAction);
+                                            //console.log(taskResult);
+                                            //console.log("rundeck action 01: " + rdAction);
                                             taskColl.findOne({"taskNo":queryObj.taskNo,"rdExecId":queryObj.rdExecId},{taskParams:1}, function(error, taskDoc){
-                                                console.log("rundeck action 02: " + rdAction);
+                                                //console.log("rundeck action 02: " + rdAction);
                                                 if(rdAction === 'deploy'){
                                                     if(error){
                                                         console.log(error.stack);
                                                         process.exit(0);
                                                     }
-                                                    console.log("rundeck action 03: " + rdAction);
+                                                    //console.log("rundeck action 03: " + rdAction);
                                                     var branch = taskDoc.taskParams.branch;
                                                     devopsDb.collection('api', function(error, apiColl){
                                                         if(error){
                                                             console.log(error.stack);
                                                             process.exit(0);
                                                         }
-                                                        console.log("rundeck action 04: " + rdAction);
+                                                        //console.log("rundeck action 04: " + rdAction);
                                                         var apiQueryObj = {};
                                                         for(var i =0; i < rdOption.length; i++){
                                                             if(rdOption[i].$.name === 'node'){
@@ -364,13 +364,13 @@ function receive(req, res, next) {
                                                         apiQueryObj['apiLocation.' + branch + '.rdExecId'] = queryObj.rdExecId;
                                                         var apiUpdateObj = {};
                                                         apiUpdateObj['apiLocation.' + branch + '.$.deploy'] = updateObj.taskStatus;
-                                                        console.log("apiQueryObj: " + JSON.stringify(apiQueryObj));
+                                                        //console.log("apiQueryObj: " + JSON.stringify(apiQueryObj));
                                                         apiColl.update(apiQueryObj, {$set:apiUpdateObj}, function(error, apiResult){
-                                                            console.log("rundeck action 05: " + rdAction);
-                                                            console.log(apiResult);
+                                                            //console.log("rundeck action 05: " + rdAction);
+                                                            //console.log(apiResult);
                                                             //db.close();
                                                             if(isAutoDeploy){
-                                                                console.log("rundeck action 06: " + rdAction);
+                                                                //console.log("rundeck action 06: " + rdAction);
                                                                 dbase.getBuildDataByDeployId(queryObj.taskNo,function(buildDoc){
                                                                     console.log(buildDoc.apiName);
                                                                     if( branch === 'lab' && (buildDoc.apiName === 'PlusFE' || buildDoc.apiName === 'PlusBE')){
