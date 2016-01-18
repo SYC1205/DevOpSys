@@ -25,9 +25,20 @@ module.exports = {
                 "Content-Type": "application/json"
             }*/
         };
-        client.post(config.get('SLACK_WH_URL'), args, function(data, response){
+        var req = client.post(config.get('SLACK_WH_URL'), args, function(data, response){
             callBack(true, data.toString("UTF-8"));
-        }).on('error',function(err){
+        });
+        
+        req.on('requestTimeout',function(req){
+            console.log('request has expired');
+            req.abort();
+        });
+ 
+        req.on('responseTimeout',function(res){
+            console.log('response has expired');
+        });
+
+        req.on('error',function(err){
             console.log('something went wrong on the request', err);
             callBack(false, err.request.options);
         });
