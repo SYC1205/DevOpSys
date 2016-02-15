@@ -21,9 +21,10 @@ module.exports = {
             options['proxy'] = {
                 host: config.get('SLACK_PROXY_HOST'),
                 port: config.get('SLACK_PROXY_PORT'),
-                tunnel: true
+                tunnel: false
             };
         }
+        console.log(JSON.stringify(options));
         var client = new Client(options);
         /*if(!icon){
 			icon = ":monkey_face:";
