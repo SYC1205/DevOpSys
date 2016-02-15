@@ -16,7 +16,7 @@ module.exports = {
             options.proxy = {
                 host: config.get('SLACK_PROXY_HOST'),
                 port: config.get('SLACK_PROXY_PORT'),
-                tunnel: false
+                tunnel: true
             };
         }
         
