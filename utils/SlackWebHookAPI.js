@@ -11,19 +11,20 @@ var Client = require('node-rest-client').Client;
 module.exports = {
     sendMsg : function(text, icon, callBack){
         //var url = config.get('SLACK_WH_URL');
-        var options = {
-            connection: {
-                rejectUnauthorized: false,
-                headers: {"Content-Type": "application/json"}
-                }
-        };
+        var options = {};
         if(config.get('SLACK_PROXY')){
-            options['proxy'] = {
+            options.proxy = {
                 host: config.get('SLACK_PROXY_HOST'),
                 port: config.get('SLACK_PROXY_PORT'),
                 tunnel: false
             };
         }
+        
+        options.connection= {
+            rejectUnauthorized: false,
+            headers: {"Content-Type": "application/json"}
+        };
+        
         console.log(JSON.stringify(options));
         var client = new Client(options);
         /*if(!icon){
