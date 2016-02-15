@@ -10,6 +10,8 @@
   <string id="last_remote_directory">None</string>
   <string id="lessDefaultInterpreter">None</string>
   <boolean id="lintJavaScript_SpiderMonkey">0</boolean>
+  <string id="nodejsDefaultInterpreter">D:\nodejs4\node.exe</string>
+  <string id="nodejsExtraPaths">D:\nodejs;C:\Users\evan.wu\AppData\Roaming\npm;D:\nodejs4</string>
   <long id="prefs_version">1</long>
   <string id="sassDefaultInterpreter">None</string>
   <string id="scssDefaultInterpreter">None</string>

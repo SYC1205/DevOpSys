@@ -106,39 +106,6 @@ function receive(req, res, next) {
                                                     res.send(sendData);
                                                 }
                                             });
-                                            /*devopsDb.collection('api', function(error, apiColl){
-                                                if(error){
-                                                    console.log(error.stack);
-                                                    process.exit(0);
-                                                }
-                                                apiColl.findOne({"apiName":req.body.JOB_NAME},{"apiLocation":true},function(error, apiDoc){
-                                                    if(error){
-                                                        console.log(error.stack);
-                                                        process.exit(0);
-                                                    }
-                                                    console.log(apiDoc);
-                                                    if(apiDoc && apiDoc.apiLocation.lab.length > 0){
-                                                        var Client = require('node-rest-client').Client;
-                                                        var client = new Client();
-                                                        var args = {
-                                                            headers:{"dps-token":config.get('DPS_TOKEN')}
-                                                        };
-                                                        apiDoc.apiLocation.lab.forEach(function(apServer) {
-                                                            //console.log('http://127.0.0.1/mod/task/deploy/'+ apServer + '/' + buildDoc.deployId + '/true');
-                                                            client.get("http://127.0.0.1:"+ (config.get("HTTP_PORT") || '80') + "/mod/task/deploy/"+ apServer.name + "/" + buildDoc.deployId + "/true", args, function(data, response){
-                                                                console.log(data);
-                                                                console.log(response);
-                                                            });
-                                                        });
-                                                        db.close();
-                                                        sendData.state = 0;
-                                                        res.send(sendData);
-                                                    }else{
-                                                        sendData.state = 0;
-                                                        res.send(sendData);
-                                                    }
-                                                });
-                                            });*/
                                         } else if(req.body.BRANCH === "origin/ol"){
                                             dbase.getApiLocation(req.body.JOB_NAME, "ol", function(error, apiLocation){
                                                 if(error){
@@ -389,27 +356,6 @@ function receive(req, res, next) {
                                                                             res.send(sendData);
 
                                                                         });
-
-                                                                        /*
-                                                                        dbase.getDataByApserName(apiQueryObj['apiLocation.' + branch + '.name'],function(apSerDoc){
-                                                                            var Client = require('node-rest-client').Client;
-                                                                            var client = new Client();
-                                                                            var args = {
-                                                                                data:{"deployid":queryObj.taskNo,"seleniumtaskid":"uuid","selenium":[],"api":[{"url":"http://" + apSerDoc.apSerIntIp + "/ajax/plus/monitor/monitor-entrance?checkKey=plus10400","method":"get","input":"","output":"OK","whiteList":"","blackList":""}]},
-                                                                                headers:{"dps-token":config.get('DPS_TOKEN')}
-                                                                            };
-                                                                            client.post("http://172.19.9.14:8080/qaServer/service/testcase", args, function(data, response){
-                                                                                var testServerRes = JSON.parse(data.toString("UTF-8"));
-                                                                                if(testServerRes.success === 'true'){
-                                                                                    sendData.state = 0;
-                                                                                }else{
-                                                                                    sendData.state = 1;
-                                                                                }
-                                                                                res.send(sendData);
-                                                                            });
-                                                                        });
-                                                                        */
-
                                                                     }else{
                                                                         sendData.state = 0;
                                                                         res.send(sendData);
@@ -421,42 +367,6 @@ function receive(req, res, next) {
                                                             }
                                                         });
                                                     });
-                                                /*}else if(rdAction === 'getfile'){
-                                                    if(updateObj.taskStatus === 0){
-                                                        if(taskDoc.taskParams.isDeploy){
-                                                            console.log("Getfile: need to deploy");
-                                                            dbase.getApiLocation(taskDoc.taskParams.apiName, "ol", function(error, apiLocation){
-                                                                if(error){
-                                                                    console.log(error.stack);
-                                                                    sendData.state = 1;
-                                                                    res.send({error: error.stack});
-                                                                }
-                                                                if(apiLocation && apiLocation.length > 0){
-                                                                    var Client = require('node-rest-client').Client;
-                                                                    var client = new Client();
-                                                                    var args = {
-                                                                        headers:{"dps-token":config.get('DPS_TOKEN')}
-                                                                    };
-                                                                    apiLocation.forEach(function(apServer){
-                                                                        client.get("http://127.0.0.1:"+ (config.get("HTTP_PORT") || '80') + "/mod/task/deploy/"+ apServer.name + "/" + buildDoc.deployId + "/true", args, function(data, response){
-                                                                            console.log(data);
-                                                                            console.log(response);
-                                                                        });
-                                                                    });
-                                                                    sendData.state = 0;
-                                                                    res.send(sendData);
-                                                                }else{
-                                                                    sendData.state = 0;
-                                                                    res.send(sendData);
-                                                                }
-                                                            });
-                                                        }else{
-                                                            console.log("Getfile: does't deploy");
-                                                        }
-                                                    }
-                                                    db.close();
-                                                    sendData.state = 0;
-                                                    res.send(sendData);*/
                                                 }else{
                                                     //db.close();
                                                     //console.log("rundeck action 09: " + rdAction);

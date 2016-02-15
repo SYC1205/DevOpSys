@@ -11,7 +11,19 @@ var Client = require('node-rest-client').Client;
 module.exports = {
     sendMsg : function(text, icon, callBack){
         //var url = config.get('SLACK_WH_URL');
-        var client = new Client({connection: {rejectUnauthorized: false,headers: {"Content-Type": "application/json"}}});
+        var options = {
+            connection: {
+                rejectUnauthorized: false,
+                headers: {"Content-Type": "application/json"}
+                }
+        };
+        if(config.get('SLACK_PROXY')){
+            options['proxy'] = {
+                host: config.get('SLACK_PROXY_HOST'),
+                port: config.get('SLACK_PROXY_PORT')
+            };
+        }
+        var client = new Client(options);
         /*if(!icon){
 			icon = ":monkey_face:";
 		}*/
@@ -30,16 +42,16 @@ module.exports = {
         });
         
         req.on('requestTimeout',function(req){
-            console.log('request has expired');
+            console.log('Request has expired');
             req.abort();
         });
  
         req.on('responseTimeout',function(res){
-            console.log('response has expired');
+            console.log('Response has expired');
         });
 
         req.on('error',function(err){
-            console.log('something went wrong on the request', err);
+            console.log('Something went wrong on the request', err);
             callBack(false, err.request.options);
         });
         
