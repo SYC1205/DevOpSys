@@ -20,7 +20,8 @@ module.exports = {
         if(config.get('SLACK_PROXY')){
             options['proxy'] = {
                 host: config.get('SLACK_PROXY_HOST'),
-                port: config.get('SLACK_PROXY_PORT')
+                port: config.get('SLACK_PROXY_PORT'),
+                tunnel: true
             };
         }
         var client = new Client(options);
