@@ -54,5 +54,8 @@
     "JENKINS_URL":"http://172.19.9.57:8080/jenkins",
     "JENKINS_BUILDS":"/opt/jk_builds",
     "JENKINS_TEST_URL":"http://172.19.9.14:8080/jenkins",
-    "SLACK_WH_URL":"https://hooks.slack.com/services/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"
+    "SLACK_WH_URL":"https://hooks.slack.com/services/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",
+    "SLACK_PROXY":false,
+    "SLACK_PROXY_HOST":"172.19.1.249",
+    "SLACK_PROXY_PORT":3128
 }

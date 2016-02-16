@@ -305,7 +305,7 @@ function deploy(req, res, next){
                 if(buildData.gitBranch === "origin/lab"){
                     rundeck = new RunDeckApi(config.get('RUNDECK_LAB_HOST'), config.get('RUNDECK_LAB_PORT'), config.get('RUNDECK_LAB_TOKEN'));
                     fileUrlPrefix = config.get('LAB_DEPLOY_FILE_SERVER');
-                    ver = '0.0';
+                    ver = '0.0.1';
                     if(req.params.isFull === "true"){
                         //rdJobId = config.get('RUNDECK_LAB_FULL_AUTO_DEPLOY_ID');
                         rdJobId = config.get('RUNDECK_LAB_DEPLOY_JOB')[apiType]['FULL'];
@@ -316,6 +316,7 @@ function deploy(req, res, next){
                 }else{
                     rundeck = new RunDeckApi(config.get('RUNDECK_OL_HOST'), config.get('RUNDECK_OL_PORT'), config.get('RUNDECK_OL_TOKEN'), 'https');
                     fileUrlPrefix = 'http://' + config.get('OL_DEPLOY_FILE_SERVER') + "/mod/download/api/";
+                    ver = '0.0.1';
                     if(req.params.isFull === "true"){
                         //rdJobId = config.get('RUNDECK_OL_FULL_AUTO_DEPLOY_ID');
                         rdJobId = config.get('RUNDECK_OL_DEPLOY_JOB')[apiType]['FULL'];
@@ -388,101 +389,9 @@ function deploy(req, res, next){
                                 //db.close();
                             });
                         });
-                        //triggerRundeck();
-                        /*if(result.status === 0){
-                            res.send(rkresult);
-                        }else{
-                            res.send(result);
-                        }*/
                     });
                 });
             });
-            /*if(buildData.gitBranch === "origin/lab"){
-                rundeck = new RunDeckApi(config.get('RUNDECK_LAB_HOST'), config.get('RUNDECK_LAB_PORT'), config.get('RUNDECK_LAB_TOKEN'));
-                fileUrlPrefix = config.get('LAB_DEPLOY_FILE_SERVER');
-                if(req.params.isFull === "true"){
-                    rdJobId = config.get('RUNDECK_LAB_FULL_AUTO_DEPLOY_ID');
-                }else{
-                    rdJobId = config.get('RUNDECK_LAB_HALF_AUTO_DEPLOY_ID');
-                }
-            }else{
-                rundeck = new RunDeckApi(config.get('RUNDECK_OL_HOST'), config.get('RUNDECK_OL_PORT'), config.get('RUNDECK_OL_TOKEN'), 'https');
-                fileUrlPrefix = 'http://' + config.get('OL_DEPLOY_FILE_SERVER') + "/mod/download/api/";
-                if(req.params.isFull === "true"){
-                    rdJobId = config.get('RUNDECK_OL_FULL_AUTO_DEPLOY_ID');
-                }else{
-                    rdJobId = config.get('RUNDECK_OL_HALF_AUTO_DEPLOY_ID');
-                }
-            }
-            
-            //for( var fileName in buildData.fileList){
-            for( var fileIdx in buildData.fileList){
-                if(buildData.fileList[fileIdx].length > 4 && (buildData.fileList[fileIdx].substr(buildData.fileList[fileIdx].length-4, 4).toLowerCase() === ".war")){
-                    setOpt.fileUrl = fileUrlPrefix + setOpt.apiName + "/" + setOpt.taskNo +"/" + buildData.fileList[fileIdx];
-                    break;
-                }
-            }
-            
-            rundeck.deployTrigger(rdJobId, apiType, setOpt.apserName, setOpt.taskNo, setOpt.fileUrl, fileName, ver, function(error,rkresult){
-                if(error){
-                    console.log("Error:" + JSON.stringify(error));
-                    res.send(error);
-                    return;
-                }
-                setOpt.rdExecId = rkresult.executions.execution[0].$.id;
-                dbase.setTask(setOpt, function(result) {
-                    var db = dbase.getDb();
-                    db.open(function(error, devopsDb){
-                        if(error){
-                            console.log(error.stack);
-                            process.exit(0);
-                        }
-                        devopsDb.collection('api', function(error, apiColl){
-                            if(error){
-                                console.log(error.stack);
-                                process.exit(0);
-                            }
-                            var queryObj = {};
-                            var updateObj = {};
-                            if(buildData.gitBranch === "origin/master"){
-                                queryObj.apiName = buildData.apiName;
-                                queryObj['apiLocation.master.name'] = setOpt.apserName;
-                                updateObj['apiLocation.master.$.deploy'] = 1;
-                                updateObj['apiLocation.master.$.rdExecId'] = setOpt.rdExecId;
-                            }else if(buildData.gitBranch === "origin/ol"){
-                                queryObj.apiName = buildData.apiName;
-                                queryObj['apiLocation.ol.name'] = setOpt.apserName;
-                                updateObj['apiLocation.ol.$.deploy'] = 1;
-                                updateObj['apiLocation.ol.$.rdExecId'] = setOpt.rdExecId;
-                            }else if(buildData.gitBranch === "origin/lab"){
-                                queryObj.apiName = buildData.apiName;
-                                queryObj['apiLocation.lab.name'] = setOpt.apserName;
-                                updateObj['apiLocation.lab.$.deploy'] = 1;
-                                updateObj['apiLocation.lab.$.rdExecId'] = setOpt.rdExecId;
-                            }
-                            apiColl.update(queryObj,{$set:updateObj},function(error, updateRes){
-                                if(error){
-                                    console.log(error.stack);
-                                    process.exit(0);
-                                }
-                                //db.close();
-                                if(updateRes.status === 0){
-                                    res.send(rkresult);
-                                }else{
-                                    res.send(updateRes);
-                                }
-                            });
-                            //db.close();
-                        });
-                    });
-                    //triggerRundeck();
-                    //if(result.status === 0){
-                    //    res.send(rkresult);
-                    //}else{
-                    //    res.send(result);
-                    //}
-                });
-            });*/
         });
     }else{
         res.send("nothing!!");
